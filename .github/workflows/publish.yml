@@ -1,0 +1,10 @@
+name: Publish
+on:
+  workflow_dispatch:
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - run: echo "Owned baseline publish workflow"

@@ -1,0 +1,20 @@
+name: Consumer
+on:
+  workflow_run:
+    workflows: ["Publish"]
+    types: [completed]
+permissions:
+  contents: read
+jobs:
+  consume:
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Record event shape
+        env:
+          EVENT_NAME: ${{ github.event.workflow_run.event }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+          HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+          HEAD_REPO: ${{ github.event.workflow_run.head_repository.full_name }}
+        run: |
+          printf 'producer_event=%s\nhead_sha=%s\nhead_branch=%s\nhead_repo=%s\n' "$EVENT_NAME" "$HEAD_SHA" "$HEAD_BRANCH" "$HEAD_REPO"
