@@ -1,10 +1,11 @@
 name: Publish
 on:
   workflow_dispatch:
+  pull_request:
 jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
-      - run: echo "Owned baseline publish workflow"
+      - run: echo "Owned pull request publish-name replica"
